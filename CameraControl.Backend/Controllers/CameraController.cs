@@ -21,13 +21,6 @@ namespace CameraControl.Backend.Controllers
             _logger = logger;
             _cameraResolver = cameraResolver;
         }
-        [HttpGet]
-        public async Task<IActionResult> Test()
-        {
-            var _camera = _cameraResolver("2");
-            await _camera.Pan(Direction.Left, 1);
-            return Ok();
-        }
 
         [HttpGet("{cameraNumber}/Pan")]
         public async Task<IActionResult> GetPan([FromQuery]Direction direction, [FromQuery] int speed, [FromRoute] string cameraNumber)

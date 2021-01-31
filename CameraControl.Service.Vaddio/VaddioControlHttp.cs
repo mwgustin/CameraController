@@ -50,9 +50,11 @@ namespace CameraControl.Service.Vaddio
         }
         private async Task ExecuteCall(string endpoint, HttpContent content)
         {
+            _logger.LogInformation($"Executing call: {endpoint} - {content}");
             var resp = await _client.PatchAsync(endpoint, content);
             if(resp.StatusCode == HttpStatusCode.Forbidden)
             {
+                _logger.LogInformation($"Fobidden response. Refreshing session and retrying.");
                 await GetSessionAsync();
                 await _client.PatchAsync(endpoint, content);
             }

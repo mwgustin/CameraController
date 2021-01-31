@@ -1,0 +1,29 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  cameracontrolwebui:
+    image: cameracontrolwebui
+    build:
+      context: .
+      dockerfile: CameraControl.WebUI/Dockerfile
+    ports:
+      - 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+  cameracontrolbackend:
+    image: cameracontrolbackend
+    build:
+      context: .
+      dockerfile: CameraControl.Backend/Dockerfile
+    ports:
+      - 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw

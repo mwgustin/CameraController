@@ -29,7 +29,7 @@ namespace CameraControl.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<VaddioControlTelnet>();
+            // services.AddSingleton<VaddioControlTelnet>();
             services.AddHttpClient<VaddioControlHttp>(config => 
                 {
                     config.BaseAddress = new Uri("http://10.0.0.5/");
@@ -40,11 +40,11 @@ namespace CameraControl.Backend
                 switch(key)
                 {
                     case "1":
-                        return sp.GetRequiredService<VaddioControlTelnet>();
-                    case "2":
                         return sp.GetRequiredService<VaddioControlHttp>();
+                    // case "2":
+                    //     return sp.GetRequiredService<VaddioControlTelnet>();
                     default:
-                        return sp.GetRequiredService<VaddioControlTelnet>();
+                        return sp.GetRequiredService<VaddioControlHttp>();
                 }
             });
 
@@ -61,11 +61,11 @@ namespace CameraControl.Backend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CameraControl.Backend v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CameraControl.Backend v1"));
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

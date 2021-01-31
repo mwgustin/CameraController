@@ -1,0 +1,27 @@
+﻿@page "/fetchdata"
+
+@using CameraControl.WebUI.Data
+@using Microsoft.Extensions.Logging;
+@using MatBlazor;
+@inject CameraControlService CameraService
+@inject ILogger<FetchData> Logger
+
+<h1>Camera Control</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+<p>
+    <button class="btn btn-primary" @onmousedown="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Up);}" @onmouseup="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Up);}">UpLeft</button>
+    <button class="btn btn-primary" @onmousedown="args => Tilt(args, Common.Direction.Up)" @onmouseup="args => Tilt(args, Common.Direction.Up)">Up</button>
+    <button class="btn btn-primary" @onmousedown="async args => { await Pan(args, Common.Direction.Right); await Tilt(args, Common.Direction.Up);}" @onmouseup="async args => { await Pan(args, Common.Direction.Right); await Tilt(args, Common.Direction.Up);}">UpRight</button>
+</p>
+<p>
+    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Left)" @onmouseup="args => Pan(args, Common.Direction.Left)">Left</button>
+    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Left)" @onmouseup="args => Pan(args, Common.Direction.Left)">Home</button>
+    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Right)" @onmouseup="args => Pan(args, Common.Direction.Right)">Right</button>
+</p>
+<p>
+    <MatButton Raised="true" Icon="south_west" @onmousedown="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Down);}" @onmouseup="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Down);}"></MatButton>
+</p>
+
+

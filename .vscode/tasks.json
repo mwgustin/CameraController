@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj",
+                "${workspaceFolder}/CameraControl.WebUI/CameraControl.WebUI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj",
+                "${workspaceFolder}/CameraControl.WebUI/CameraControl.WebUI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,11 +32,68 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj",
+                "${workspaceFolder}/CameraControl.WebUI/CameraControl.WebUI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "cameracontroller:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/CameraControl.Backend/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "cameracontroller:latest",
+                "dockerfile": "${workspaceFolder}/CameraControl.Backend/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj",
+                "enableDebugging": true,
+                "configureSsl": false
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/CameraControl.Backend/CameraControl.Backend.csproj"
+            }
         }
     ]
 }
