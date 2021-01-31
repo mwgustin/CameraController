@@ -5,9 +5,9 @@ namespace CameraControl.Service.Vaddio
     public class VaddioCameraPresetRequest
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public VaddioCameraPresetDirections recall { get; set; }
+        public VaddioCameraPresetRecallDirections recall { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public VaddioCameraPresetDirections store { get; set; }
+        public VaddioCameraPresetStoreDirections store { get; set; }
     }
 }

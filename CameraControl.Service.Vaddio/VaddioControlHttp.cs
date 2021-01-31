@@ -185,18 +185,18 @@ namespace CameraControl.Service.Vaddio
             int finalPresetNum = presetNum-1 >= 0 ? presetNum-1 : 0;
             var message = new VaddioCameraPresetRequest()
             {
-                recall = new VaddioCameraPresetDirections() { id = presetNum-1}
+                recall = new VaddioCameraPresetRecallDirections() { id = presetNum-1}
             };
             await ExecutePresetCallAsync(message);
         }
 
         public async Task StorePreset(int presetNum)
         {
-            //{"store":{"id":0,"user_label":"Band","focus":false,"color_correction":true}}
+            
             int finalPresetNum = presetNum-1 >= 0 ? presetNum-1 : 0;
             var message = new VaddioCameraPresetRequest()
             {
-                store = new VaddioCameraPresetDirections() { id = presetNum-1}
+                store = new VaddioCameraPresetStoreDirections() { id = presetNum-1, focus = false, color_correction = true}
             };
             await ExecutePresetCallAsync(message);
         }
