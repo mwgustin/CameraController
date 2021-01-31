@@ -44,6 +44,18 @@ namespace CameraControl.WebUI.Pages
                     break;  
             }
         }
+        private async Task PanTilt(MouseEventArgs e, Common.Direction panDirection, Common.Direction tiltDirection)
+        {
+            switch(e.Type)
+            {
+                case "mousedown":
+                    await CameraService.PanTilt(1, panDirection, tiltDirection);
+                    break;
+                default:
+                    await CameraService.PanTilt(1, Common.Direction.Stop, Common.Direction.Stop);
+                    break;  
+            }
+        }
         private async Task Zoom(MouseEventArgs e, Common.Direction direction)
         {
             switch(e.Type)

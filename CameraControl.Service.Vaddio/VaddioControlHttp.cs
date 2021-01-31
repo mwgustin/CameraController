@@ -60,6 +60,7 @@ namespace CameraControl.Service.Vaddio
             }
         }
 
+
         public async Task Pan(Direction direction, int speed)
         {
             string directionValue;
@@ -112,6 +113,48 @@ namespace CameraControl.Service.Vaddio
              await ExecuteStateCallAsync(message);
         }
 
+        public async Task PanTilt(Direction panDirection, Direction tiltDirection, int panSpeed, int tiltSpeed)
+        {
+            string panDirectionValue;
+            int panFinalSpeed = panSpeed > 0 && panSpeed <= 24 ? panSpeed : 12;
+            switch(panDirection)
+            {
+                case Direction.Left:
+                    panDirectionValue = "left";
+                    break;
+                case Direction.Right:
+                    panDirectionValue = "right";
+                    break;
+                default:
+                    panDirectionValue = "stop";
+                    break;
+            }
+
+            string tiltDirectionValue;
+            int tiltFinalSpeed = tiltSpeed > 0 && tiltSpeed <= 20 ? tiltSpeed : 10;
+            
+            switch(tiltDirection)
+            {
+                case Direction.Up:
+                    tiltDirectionValue = "up";
+                    break;
+                case Direction.Down:
+                    tiltDirectionValue = "down";
+                    break;
+                default:
+                    tiltDirectionValue = "stop";
+                    break;
+            }
+
+            var message = new VaddioCameraStateRequest()
+            {
+                pan = new VaddioCameraStateDirections() { speed = panSpeed, direction = panDirectionValue},
+                tilt = new VaddioCameraStateDirections() { speed = tiltSpeed, direction = tiltDirectionValue}
+            };
+
+            await ExecuteStateCallAsync(message);
+        }
+
         public async Task Zoom(Direction direction, int speed)
         {
             string directionValue;
@@ -149,6 +192,7 @@ namespace CameraControl.Service.Vaddio
 
         public async Task StorePreset(int presetNum)
         {
+            //{"store":{"id":0,"user_label":"Band","focus":false,"color_correction":true}}
             int finalPresetNum = presetNum-1 >= 0 ? presetNum-1 : 0;
             var message = new VaddioCameraPresetRequest()
             {
@@ -157,5 +201,6 @@ namespace CameraControl.Service.Vaddio
             await ExecutePresetCallAsync(message);
         }
 
+        
     }
 }

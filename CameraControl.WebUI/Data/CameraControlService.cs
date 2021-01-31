@@ -50,6 +50,39 @@ namespace CameraControl.WebUI.Data
             await _client.GetAsync(url);
         }
 
+        public async Task PanTilt(int cameraNumber, Direction panDirection, Direction tiltDirection)
+        {
+            string url = $"/Camera/{cameraNumber}/PanTilt?";
+            switch(panDirection)
+            {
+                case Direction.Left:
+                    url += "panDirection=Left";
+                    break;
+                case Direction.Right:
+                    url += "panDirection=Right";
+                    break;
+                case Direction.Stop:
+                    url += "panDirection=Stop";
+                    break;
+            }
+
+            url += "&";
+
+            switch(tiltDirection)
+            {
+                case Direction.Up:
+                    url += "tiltDirection=Up";
+                    break;
+                case Direction.Down:
+                    url += "tiltDirection=Down";
+                    break;
+                default:
+                    url += "tiltDirection=Stop";
+                    break;
+            }
+            await _client.GetAsync(url);
+        }
+
         public async Task Zoom(int cameraNumber, Direction direction)
         {
             string url = $"/Camera/{cameraNumber}/Zoom";

@@ -36,6 +36,18 @@ namespace CameraControl.Backend.Controllers
             await _camera.Tilt(direction, speed);
             return Ok();
         }
+        [HttpGet("{cameraNumber}/PanTilt")]
+        public async Task<IActionResult> GetPanTilt(
+            [FromQuery]Direction panDirection, 
+            [FromQuery]Direction tiltDirection, 
+            [FromQuery] int panSpeed, 
+            [FromQuery] int tiltSpeed,
+            [FromRoute] string cameraNumber)
+        {
+            var _camera = _cameraResolver(cameraNumber);
+            await _camera.PanTilt(panDirection, tiltDirection, panSpeed, tiltSpeed);
+            return Ok();
+        }
         [HttpGet("{cameraNumber}/Zoom")]
         public async Task<IActionResult> GetZoom([FromQuery]Direction direction, [FromQuery] int speed, [FromRoute] string cameraNumber)
         {

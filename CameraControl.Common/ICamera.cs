@@ -7,6 +7,7 @@ namespace CameraControl.Common
     {
         Task Pan(Direction direction, int speed);
         Task Tilt(Direction direction, int speed);
+        Task PanTilt(Direction panDirection, Direction tiltDirection, int panSpeed, int tiltSpeed);
         Task Zoom(Direction direction, int speed);
         Task RecallPreset(int presetNum);
         Task StorePreset(int presetNum);

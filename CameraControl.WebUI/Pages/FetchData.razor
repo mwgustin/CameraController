@@ -6,22 +6,30 @@
 @inject CameraControlService CameraService
 @inject ILogger<FetchData> Logger
 
+<style>
+    .cameraNav {
+        height: 7em;
+        width: 7em;
+    }
+</style>
 <h1>Camera Control</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
 
 <p>
-    <button class="btn btn-primary" @onmousedown="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Up);}" @onmouseup="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Up);}">UpLeft</button>
-    <button class="btn btn-primary" @onmousedown="args => Tilt(args, Common.Direction.Up)" @onmouseup="args => Tilt(args, Common.Direction.Up)">Up</button>
-    <button class="btn btn-primary" @onmousedown="async args => { await Pan(args, Common.Direction.Right); await Tilt(args, Common.Direction.Up);}" @onmouseup="async args => { await Pan(args, Common.Direction.Right); await Tilt(args, Common.Direction.Up);}">UpRight</button>
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await PanTilt(args, Common.Direction.Left, Common.Direction.Up);}" @onmouseup="async args => { await PanTilt(args, Common.Direction.Stop, Common.Direction.Stop);}"><MatIcon Icon="north_west"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await Tilt(args, Common.Direction.Up);}" @onmouseup="async args => { await Tilt(args, Common.Direction.Up);}"><MatIcon Icon="north"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await PanTilt(args, Common.Direction.Right, Common.Direction.Up);}" @onmouseup="async args => { await PanTilt(args, Common.Direction.Stop, Common.Direction.Stop);}"><MatIcon Icon="north_east"></MatIcon></MatButton >
 </p>
 <p>
-    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Left)" @onmouseup="args => Pan(args, Common.Direction.Left)">Left</button>
-    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Left)" @onmouseup="args => Pan(args, Common.Direction.Left)">Home</button>
-    <button class="btn btn-primary" @onmousedown="args => Pan(args, Common.Direction.Right)" @onmouseup="args => Pan(args, Common.Direction.Right)">Right</button>
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await Pan(args, Common.Direction.Left); }" @onmouseup="async args => { await Pan(args, Common.Direction.Left);}"><MatIcon Icon="west"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await Tilt(args, Common.Direction.Down);}" @onmouseup="async args => { await Tilt(args, Common.Direction.Down);}"><MatIcon Icon="home"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await Pan(args, Common.Direction.Right);}" @onmouseup="async args => { await Pan(args, Common.Direction.Right);}"><MatIcon Icon="east"></MatIcon></MatButton >
 </p>
 <p>
-    <MatButton Raised="true" Icon="south_west" @onmousedown="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Down);}" @onmouseup="async args => { await Pan(args, Common.Direction.Left); await Tilt(args, Common.Direction.Down);}"></MatButton>
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await PanTilt(args, Common.Direction.Left, Common.Direction.Down);}" @onmouseup="async args => { await PanTilt(args, Common.Direction.Stop, Common.Direction.Stop);}"><MatIcon Icon="south_west"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true" @onmousedown="async args => { await Tilt(args, Common.Direction.Down);}" @onmouseup="async args => { await Tilt(args, Common.Direction.Down);}"><MatIcon Icon="south"></MatIcon></MatButton >
+    <MatButton class="cameraNav" Raised="true"  @onmousedown="async args => { await PanTilt(args, Common.Direction.Right, Common.Direction.Down);}" @onmouseup="async args => { await PanTilt(args, Common.Direction.Stop, Common.Direction.Stop);}"><MatIcon Icon="south_east"></MatIcon></MatButton >
 </p>
 
 

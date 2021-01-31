@@ -163,6 +163,11 @@ namespace CameraControl.Service.Vaddio
             
         }
 
+        public Task PanTilt(Direction panDirection, Direction tiltDirection, int panSpeed, int tiltSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #endregion
     }
