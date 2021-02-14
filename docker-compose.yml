@@ -21,6 +21,8 @@ services:
       - camera
     ports:
       - 9080:80
+    environment:
+      - CAMERA1_ADDRESS=https://10.0.0.5/
 
 networks:
   camera:

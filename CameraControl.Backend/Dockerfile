@@ -14,6 +14,9 @@ FROM build AS publish
 RUN dotnet publish "CameraControl.Backend.csproj" -c Release -o /app/publish
 
 FROM base AS final
+
+ENV CAMERA1_ADDRESS="changeme"
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CameraControl.Backend.dll"]

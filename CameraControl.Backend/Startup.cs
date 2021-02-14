@@ -32,7 +32,7 @@ namespace CameraControl.Backend
             // services.AddSingleton<VaddioControlTelnet>();
             services.AddHttpClient<VaddioControlHttp>(config => 
                 {
-                    config.BaseAddress = new Uri("http://10.0.0.5/");
+                    config.BaseAddress = new Uri(Configuration.GetValue<string>("CAMERA1_ADDRESS"));
                 })
                 .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler(){ CookieContainer = new System.Net.CookieContainer()});
             services.AddTransient<CameraResolver>(sp => key =>
